@@ -1,0 +1,75 @@
+[build-system]
+requires = ["hatchling>=1.27"]
+build-backend = "hatchling.build"
+
+[project]
+name = "rtpscope"
+dynamic = ["version"]
+description = "Call-quality analysis for VoIP/RTP traffic in packet captures."
+readme = "README.md"
+license = "MIT"
+license-files = ["LICENSE"]
+authors = [{ name = "Alqama Rao" }]
+requires-python = ">=3.11"
+dependencies = []
+keywords = ["rtp", "voip", "pcap", "pcapng", "sip", "jitter", "mos", "network-analysis"]
+classifiers = [
+    "Development Status :: 3 - Alpha",
+    "Environment :: Console",
+    "Intended Audience :: Telecommunications Industry",
+    "Intended Audience :: System Administrators",
+    "Operating System :: OS Independent",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
+    "Programming Language :: Python :: 3.14",
+    "Topic :: Communications :: Internet Phone",
+    "Topic :: System :: Networking :: Monitoring",
+    "Typing :: Typed",
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=8.0",
+    "pytest-cov>=5.0",
+    "ruff>=0.6",
+    "mypy>=1.11",
+]
+
+[project.scripts]
+rtpscope = "rtpscope.cli:main"
+
+[project.urls]
+Repository = "https://github.com/raoalqama-dev/rtpscope"
+Issues = "https://github.com/raoalqama-dev/rtpscope/issues"
+
+[tool.hatch.version]
+path = "src/rtpscope/__init__.py"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/rtpscope"]
+
+[tool.ruff]
+line-length = 100
+target-version = "py311"
+src = ["src", "tests"]
+
+[tool.ruff.lint]
+select = ["E", "F", "W", "I", "B", "UP", "N", "SIM", "PTH", "RUF", "C4", "PIE", "RET"]
+
+[tool.mypy]
+strict = true
+files = ["src"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts = "-ra"
+
+[tool.coverage.run]
+source = ["rtpscope"]
+branch = true
+
+[tool.coverage.report]
+show_missing = true
+skip_covered = true
